@@ -116,19 +116,45 @@ if uploader is not None:
                     (df['data_venda']<=pd.to_datetime(data_fim))
                     ]
     
-    #Filtros
-    estados = df_filtrado["estado_loja"].unique().tolist()
+    # --- Filtros ---
+    estados = df["estado_loja"].unique().tolist()
     estado_selecionado = st.sidebar.multiselect("Filtrar Estado", estados)
 
-    categoria = df_filtrado["categoria_produto"].unique().tolist()
+    categoria = df["categoria_produto"].unique().tolist()
     categoria_selecionado = st.sidebar.multiselect("Filtrar Categoria", categoria)
-    
+
     anos = sorted(df['ano'].unique().tolist())
-    ano_selecionado = st.sidebar.selectbox('Filtrar Ano',['Todos'] + anos)
+    ano_selecionado = st.sidebar.selectbox('Filtrar Ano', ['Todos'] + anos)
 
-    meses = ([m for m in ordem_meses if m in df['mes_nome'].unique()])
-    mes_selecionado = st.sidebar.selectbox('Filtrar Mês',['Todos'] + meses)
+    mapa_meses = {
+    1: 'janeiro', 2: 'fevereiro', 3: 'março', 4: 'abril',
+    5: 'maio', 6: 'junho', 7: 'julho', 8: 'agosto',
+    9: 'setembro', 10: 'outubro', 11: 'novembro', 12: 'dezembro'
+}
+    ordem_meses = list(mapa_meses.values())
 
+    # Traduz os meses logo após criar a coluna
+    df['mes_nome'] = df['data_venda'].dt.month.map(mapa_meses)
+    df_filtrado['mes_nome'] = df_filtrado['data_venda'].dt.month.map(mapa_meses)
+
+    # Criar coluna auxiliar com posição do mês
+    df_filtrado['ordem'] = df_filtrado['mes_nome'].apply(
+        lambda x: ordem_meses.index(x) if x in ordem_meses else -1
+    )
+
+    # Agora sim o agrupamento funciona
+    vendas_mes = (
+    df_filtrado.groupby(['mes_nome','ordem'])['valor_venda']
+    .sum()
+    .reset_index()
+    .sort_values('ordem')
+    )
+
+    meses = [m for m in ordem_meses if m in df['mes_nome'].unique()]
+
+    mes_selecionado = st.sidebar.selectbox('Filtrar Mês', ['Todos'] + ordem_meses)
+
+    # --- Aplicar filtros ---
     df_filtrado = df.copy()
     if categoria_selecionado:
         df_filtrado = df_filtrado[df_filtrado['categoria_produto'].isin(categoria_selecionado)]
@@ -137,36 +163,24 @@ if uploader is not None:
         df_filtrado = df_filtrado[df_filtrado['estado_loja'].isin(estado_selecionado)]
 
     if ano_selecionado != "Todos":
-        df_filtrado = df_filtrado[df_filtrado['ano']==ano_selecionado]
+        df_filtrado = df_filtrado[df_filtrado['ano'] == ano_selecionado]
 
     if mes_selecionado != "Todos":
-        df_filtrado = df_filtrado[df_filtrado['mes_nome']==mes_selecionado]
+        df_filtrado = df_filtrado[df_filtrado['mes_nome'] == mes_selecionado]
 
-    mapa_meses = {
-        "January": "janeiro", "February": "fevereiro", "March": "março",
-        "April": "abril", "May": "maio", "June": "junho",
-        "July": "julho", "August": "agosto", "September": "setembro",
-        "October": "outubro", "November": "novembro", "December": "dezembro"
-    }
+    # --- Criar coluna auxiliar com posição do mês ---
+    df_filtrado['ordem'] = df_filtrado['mes_nome'].apply(
+        lambda x: ordem_meses.index(x)
+    )
 
-    # Traduz os meses logo após criar a coluna
-    df['mes_nome'] = df['data_venda'].dt.strftime('%B').map(mapa_meses)
-
-    ordem_meses = [
-        'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
-        'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
-    ]
-
-    # Criar coluna auxiliar com posição do mês
-    df_filtrado['ordem'] = df_filtrado['mes_nome'].apply(lambda x: ordem_meses.index(x))
-
+# --- Agrupamento ---
     vendas_mes = (
-        df_filtrado.groupby(['mes_nome','ordem'])['valor_venda']
+        df_filtrado.groupby(['mes_nome', 'ordem'])['valor_venda']
         .sum()
         .reset_index()
         .sort_values('ordem')
     )
-    
+
     #Colunas para ajustar cartão de indicadores
     coluna1,coluna2,coluna3,coluna4 = st.columns([3,3,3,3])
 
