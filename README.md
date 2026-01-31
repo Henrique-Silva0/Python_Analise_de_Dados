@@ -123,15 +123,20 @@ dashboard-vendas/
 
 ## 🖼️ Screenshots
 
+## 🖼️ Screenshots
+
 <p align="center">
-  <img src="screenshots/dashboard-1.png" alt="Visão Geral" width="80%"/>
+  <img src="https://github.com/Henrique-Silva0/Python_Analise_de_Dados/blob/main/Captura%20de%20tela%202026-01-30%20234708.png?raw=true" 
+       alt="Visão Geral" width="80%"/>
 </p>
 
 <p align="center">
-  <img src="screenshots/dashboard-2.png" alt="Análises" width="80%"/>
+  <img src="https://github.com/Henrique-Silva0/Python_Analise_de_Dados/blob/main/Captura%20de%20tela%202026-01-30%20234721.png?raw=true" 
+       alt="Análises" width="80%"/>
 </p>
 
 ---
+
 
 ## 🛠️ Tecnologias Utilizadas
 
