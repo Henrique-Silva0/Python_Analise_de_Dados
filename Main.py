@@ -21,6 +21,67 @@ html_title = """
     }
     </style>
     <center><h1 class="title-test">DASHBOARD DE VENDAS</h1></center>
+    /* Esconde o label do multiselect */
+    .stMultiSelect label {
+        display: none;
+    }
+
+    /* Texto das opções do dropdown */
+    div[data-baseweb="menu"] span {
+        font-size: 20px !important;
+        color: white;
+    }
+
+    /* Fundo principal */
+    section[data-testid="stAppViewContainer"] {
+        background-color: #badea6;
+    }
+
+    /* Multiselect */
+    div[data-testid="stMultiSelect"] > div {
+        background-color: #388D2B;
+        border: 2px solid #388D2B;
+        border-radius: 18px;
+        padding: 6px;
+    }
+
+    /* Hover */
+    div[data-testid="stMultiSelect"]:hover > div {
+        background-color: #2f7a24;
+    }
+
+    /* Tags selecionadas do multiselect */
+    div[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
+        background-color: #28991f !important;  /* VERDE */
+        color: white !important;
+        border-radius: 12px;
+        padding: 10px 28px;
+        font-weight: 500;
+    }
+
+    /* Botões */
+    .stButton > button,
+    .stDownloadButton > button {
+        width: 100%;
+        height: 3em;
+        border-radius: 6px;
+        background-color: #28991f;
+        color: white;
+    }
+
+    /* Botões da sidebar */
+    div[data-testid="stSidebar"] .stButton > button {
+        background-color: #dc3545;
+        color: white;
+        border-radius: 6px;
+        border: none;
+    }
+
+    div[data-testid="stSidebar"] .stButton > button:hover {
+        background-color: #a71d2a;
+    }
+
+
 """
 st.markdown(html_title, unsafe_allow_html=True)
 
