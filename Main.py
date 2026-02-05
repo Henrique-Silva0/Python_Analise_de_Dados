@@ -19,9 +19,9 @@ html_title = """
     padding:5px;
     border-radius:6px
     }
-    </style>
+
     <center><h1 class="title-test">DASHBOARD DE VENDAS</h1></center>
- /* Esconde o label do multiselect */
+    /* Esconde o label do multiselect */
     .stMultiSelect label {
         display: none;
     }
@@ -39,7 +39,7 @@ html_title = """
 
     /* Multiselect */
     div[data-testid="stMultiSelect"] > div {
-        background-color: #388D2B;
+        background-color: #5058EB;
         border: 2px solid #388D2B;
         border-radius: 18px;
         padding: 6px;
@@ -47,12 +47,12 @@ html_title = """
 
     /* Hover */
     div[data-testid="stMultiSelect"]:hover > div {
-        background-color: #2f7a24;
+        background-color: #5058EB;
     }
 
     /* Tags selecionadas do multiselect */
     div[data-testid="stMultiSelect"] span[data-baseweb="tag"] {
-        background-color: #28991f !important;  /* VERDE */
+        background-color: #5058EB !important;  /* VERDE */
         color: white !important;
         border-radius: 12px;
         padding: 10px 28px;
@@ -80,7 +80,7 @@ html_title = """
     div[data-testid="stSidebar"] .stButton > button:hover {
         background-color: #a71d2a;
     }
-
+    </style>
 """
 st.markdown(html_title, unsafe_allow_html=True)
 
