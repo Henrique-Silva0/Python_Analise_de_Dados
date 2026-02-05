@@ -21,7 +21,7 @@ html_title = """
     }
     </style>
     <center><h1 class="title-test">DASHBOARD DE VENDAS</h1></center>
-    /* Esconde o label do multiselect */
+ /* Esconde o label do multiselect */
     .stMultiSelect label {
         display: none;
     }
@@ -80,7 +80,6 @@ html_title = """
     div[data-testid="stSidebar"] .stButton > button:hover {
         background-color: #a71d2a;
     }
-
 
 """
 st.markdown(html_title, unsafe_allow_html=True)
